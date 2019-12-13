@@ -59,6 +59,10 @@ namespace Test
             position.x = mipMapSize.x * rateX;
             position.y = mipMapSize.y * rateY;
             transform.localPosition = position;
+
+            Vector3 tmpAngle = transform.localEulerAngles;
+            tmpAngle.z = 90 - player.localEulerAngles.y;
+            transform.localEulerAngles = tmpAngle;
         }
     }
 }
