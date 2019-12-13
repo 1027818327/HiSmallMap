@@ -36,6 +36,10 @@ namespace Test
 
         void Update()
         {
+            if (player == null) 
+            {
+                return;
+            }
             PlayerRate();
             MipMapWave();
         }
