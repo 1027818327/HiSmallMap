@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Test
 {
-    public class Demo : MonoBehaviour
+    public class SmallMap : MonoBehaviour
     {
         public Transform player;
         public RectTransform mMapTrans;
