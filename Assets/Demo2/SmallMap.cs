@@ -15,10 +15,8 @@ namespace Test
         public Transform player;
         public RectTransform mMapTrans;
 
-        /// <summary>
-        /// 地面
-        /// </summary>
-        public Transform ground;
+        private Vector3 groundSize;
+
 
         //小地图的尺寸
         Vector2 mipMapSize;
@@ -44,17 +42,31 @@ namespace Test
             MipMapWave();
         }
 
-        //角色在地形上的比例
-        public void PlayerRate()
+        public void SetMapArea(Vector3 area) 
         {
-            localPos = player.position - ground.position;
-            localPos = ground.InverseTransformPoint(localPos);
-
-            rateX = localPos.x / ground.localScale.x;
-            rateY = localPos.z / ground.localScale.z;
+            groundSize = area;
         }
 
-        public void MipMapWave()
+        public void SetMapArea(Transform trans) 
+        {
+            MeshFilter tempMf = trans.GetComponent<MeshFilter>();
+            if (tempMf != null) 
+            {
+                groundSize = tempMf.mesh.bounds.size;
+                groundSize.x *= trans.localScale.x;
+                groundSize.y = 0;
+                groundSize.z *= trans.localScale.z;
+            }
+        }
+
+        //角色在地形上的比例
+        private void PlayerRate()
+        {
+            rateX = player.position.x / groundSize.x;
+            rateY = player.position.z / groundSize.z;
+        }
+
+        private void MipMapWave()
         {
             position.x = mipMapSize.x * rateX;
             position.y = mipMapSize.y * rateY;
